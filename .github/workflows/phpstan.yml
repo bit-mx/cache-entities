@@ -1,4 +1,4 @@
-name: syntax 8.3
+name: phpstan
 on:
   pull_request:
     branches:
