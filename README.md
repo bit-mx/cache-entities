@@ -32,22 +32,6 @@ You can install the package via composer:
 composer require bit-mx/cache-entities
 ```
 
-## Setup
-
-You need to publish the configuration file to set the connection name.
-
-```bash
-php artisan vendor:publish --provider="BitMx\CacheEntities\CacheEntitiesServiceProvider" --tag="config"
-```
-
-This command will create a new configuration file in the `config` directory.
-
-```php
-return [
-    'driver' => env('CACHE_ENTITIES_DRIVER', 'file'),
-];
-```
-
 ## Compatibility
 
 This package is compatible with Laravel 10.x and above.
