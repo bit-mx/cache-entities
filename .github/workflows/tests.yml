@@ -5,7 +5,15 @@ on:
       - master
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ ubuntu-latest, windows-latest ]
+        php: [ 8.2, 8.3 ]
+
+    name: P${{ matrix.php }} - ${{ matrix.os }}
 
     env:
       CACHE_ENTITIES_DRIVER: array
@@ -16,7 +24,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.3
+          php-version: ${{ matrix.php }}
           tools: composer:v2
           coverage: none
       - name: Install dependencies
