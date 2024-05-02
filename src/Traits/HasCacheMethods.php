@@ -19,8 +19,7 @@ trait HasCacheMethods
      */
     public function get(): mixed
     {
-        return Cache::store($this->resolveCacheStore())
-            ->remember($this->resolveKey(), $this->resolveTtl(), fn () => $this->resolveValue());
+        return Cache::remember($this->resolveKey(), $this->resolveTtl(), fn () => $this->resolveValue());
     }
 
     /**
@@ -28,14 +27,12 @@ trait HasCacheMethods
      */
     public function forget(): void
     {
-        Cache::store($this->resolveCacheStore())
-            ->forget($this->resolveKey());
+        Cache::forget($this->resolveKey());
     }
 
     public function put(): void
     {
-        Cache::store($this->resolveCacheStore())
-            ->put($this->resolveKey(), $this->resolveValue(), $this->resolveTtl());
+        Cache::put($this->resolveKey(), $this->resolveValue(), $this->resolveTtl());
     }
 
     public function doesNotExist(): bool
@@ -45,7 +42,6 @@ trait HasCacheMethods
 
     public function exists(): bool
     {
-        return Cache::store($this->resolveCacheStore())
-            ->has($this->resolveKey());
+        return Cache::has($this->resolveKey());
     }
 }
