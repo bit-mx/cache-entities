@@ -1,0 +1,37 @@
+{
+    "name": "bit-mx/cache-entities",
+    "description": "Creates cacheable entities",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "BitMx\\CacheEntities\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jorge Enríquez",
+            "email": "44071711+jenriquez-bit@users.noreply.github.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": "^8.2",
+        "illuminate/support": "^10.0 || ^11.0"
+    },
+    "require-dev": {
+        "fakerphp/faker": "^1.23",
+        "laravel/pint": "^1.15",
+        "phpstan/extension-installer": "^1.3",
+        "larastan/larastan": "^2.9",
+        "tomasvotruba/type-coverage": "^0.2.8",
+        "orchestra/testbench": "^9.0",
+        "pestphp/pest": "^2.34",
+        "pestphp/pest-plugin-laravel": "^2.4"
+    },
+    "config": {
+        "allow-plugins": {
+            "phpstan/extension-installer": true,
+            "pestphp/pest-plugin": true
+        }
+    }
+}
