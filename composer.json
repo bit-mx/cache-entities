@@ -2,6 +2,7 @@
     "name": "bit-mx/cache-entities",
     "description": "Creates cacheable entities",
     "type": "library",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "BitMx\\CacheEntities\\": "src/"
