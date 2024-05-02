@@ -7,6 +7,11 @@
             "BitMx\\CacheEntities\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "BitMx\\CacheEntities\\Tests\\": "tests/"
+        }
+    },
     "authors": [
         {
             "name": "Jorge Enríquez",
@@ -32,6 +37,13 @@
         "allow-plugins": {
             "phpstan/extension-installer": true,
             "pestphp/pest-plugin": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "BitMx\\CacheEntities\\CacheEntitiesServiceProvider"
+            ]
         }
     }
 }

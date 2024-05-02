@@ -1,0 +1,27 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Libs\CacheEntities\CacheEntity;
+use Carbon\CarbonInterval;
+
+class {{ class }} extends CacheEntity
+{
+   #[\Override]
+   protected function resolveKey(): string
+   {
+       return '';
+   }
+
+    #[\Override]
+    protected function resolveTtl(): CarbonInterval
+    {
+        return CarbonInterval::hour();
+    }
+
+    #[\Override]
+    protected function resolveValue(): mixed
+    {
+        //
+    }
+}

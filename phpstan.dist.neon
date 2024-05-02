@@ -1,0 +1,10 @@
+parameters:
+    level: 7
+    paths:
+        - src
+    checkOctaneCompatibility: true
+
+    type_coverage:
+        return: 100
+        param: 100
+        property: 100
