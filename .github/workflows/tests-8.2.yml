@@ -7,6 +7,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    env:
+      CACHE_ENTITIES_DRIVER: array
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
