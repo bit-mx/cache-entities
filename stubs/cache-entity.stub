@@ -2,7 +2,7 @@
 
 namespace {{ namespace }};
 
-use App\Libs\CacheEntities\CacheEntity;
+use BitMx\CacheEntities\CacheEntity;
 use Carbon\CarbonInterval;
 
 class {{ class }} extends CacheEntity
