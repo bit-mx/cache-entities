@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Cache;
 /**
  * @template TReturn
  *
- * @mixin CacheEntity
+ * @mixin CacheEntity<TReturn>
  */
 trait HasCacheMethods
 {
