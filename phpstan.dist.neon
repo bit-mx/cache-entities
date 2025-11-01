@@ -1,5 +1,5 @@
 parameters:
-    level: 7
+    level: 9
     paths:
         - src
     checkOctaneCompatibility: true
@@ -8,3 +8,8 @@ parameters:
         return: 100
         param: 100
         property: 100
+
+    ignoreErrors:
+            -
+                message: '#Call to an undefined method Illuminate\\Contracts\\Cache\\Repository::memo\(\)\.#'
+                path: src/Traits/HasCacheMethods.php
