@@ -29,4 +29,14 @@ abstract class CacheEntity implements CacheableEntity
     {
         return now()->addHour();
     }
+
+    protected function hasMemoization(): bool
+    {
+        return false;
+    }
+
+    protected function resolveCacheStore(): ?string
+    {
+        return null;
+    }
 }
