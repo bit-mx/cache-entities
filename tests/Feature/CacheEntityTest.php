@@ -145,7 +145,7 @@ it('uses memoization when HasMemoization trait is included', function () {
     expect($value)->toBe('value');
 });
 
-it('does not has memoization cache value if hasMemoization HasMemoization trait is not included', function () {
+it('does not use memoization when HasMemoization trait is not included', function () {
     /** @var CacheEntity<string> $entity */
     $entityWithoutMemoization = new class extends CacheEntity
     {
