@@ -103,7 +103,7 @@ it('forgets the value', function () {
     expect(Cache::has($entity->getKey()))->toBeFalse();
 });
 
-it('has memoization cache value if hasMemoization HasMemoization trait is included', function () {
+it('uses memoization when HasMemoization trait is included', function () {
     /** @var CacheEntity<string> $entity */
     $entityWithMemoization = new class extends CacheEntity
     {
