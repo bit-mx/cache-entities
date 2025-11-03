@@ -10,7 +10,3 @@ parameters:
         param: 100
         property: 100
 
-    ignoreErrors:
-            -
-                message: '#Call to an undefined method Illuminate\\Contracts\\Cache\\Repository::memo\(\)\.#'
-                path: src/Traits/HasCacheMethods.php

@@ -133,6 +133,7 @@ it('uses memoization when HasMemoization trait is included', function () {
 
     Cache::shouldReceive('memo')
         ->once()
+        ->with(null)
         ->andReturn($mockMemo);
 
     $value = $entityWithMemoization->get();
@@ -176,6 +177,49 @@ it('does not use memoization when HasMemoization trait is not included', functio
         ->andReturn($mockCache);
 
     $value = $entityWithoutMemoization->get();
+
+    expect($value)->toBe('value');
+});
+
+it('uses custom driver with memoization', function () {
+    /** @var CacheEntity<string> $entity */
+    $entityWithCustomDriver = new class extends CacheEntity
+    {
+        use HasMemoization;
+
+        protected function resolveKey(): string
+        {
+            return 'key';
+        }
+
+        protected function resolveTtl(): int
+        {
+            return 60;
+        }
+
+        protected function resolveValue(): string
+        {
+            return 'value';
+        }
+
+        protected function resolveCacheStore(): string
+        {
+            return 'redis';
+        }
+    };
+
+    $mockMemo = Mockery::mock(Repository::class);
+    $mockMemo->shouldReceive('remember')
+        ->once()
+        ->with('key', 60, Mockery::type('Closure'))
+        ->andReturnUsing(fn ($key, $ttl, $callback) => $callback());
+
+    Cache::shouldReceive('memo')
+        ->once()
+        ->with('redis')
+        ->andReturn($mockMemo);
+
+    $value = $entityWithCustomDriver->get();
 
     expect($value)->toBe('value');
 });
