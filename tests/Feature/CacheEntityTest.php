@@ -167,7 +167,7 @@ it('does not use memoization when HasMemoization trait is not included', functio
 
     $mockCache = Mockery::mock(Repository::class);
 
-    // Verificar que memo() NO debe ser llamado
+    // Verify that memo() should NOT be called
     $mockCache->shouldNotReceive('memo');
 
     // Pero sí debe llamar directamente a remember()
