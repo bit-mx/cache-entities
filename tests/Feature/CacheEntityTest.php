@@ -131,14 +131,9 @@ it('uses memoization when HasMemoization trait is included', function () {
         ->with('key', 60, Mockery::type('Closure'))
         ->andReturnUsing(fn ($key, $ttl, $callback) => $callback());
 
-    $mockCache = Mockery::mock(Repository::class);
-    $mockCache->shouldReceive('memo')
+    Cache::shouldReceive('memo')
         ->once()
         ->andReturn($mockMemo);
-
-    Cache::shouldReceive('driver')
-        ->once()
-        ->andReturn($mockCache);
 
     $value = $entityWithMemoization->get();
 

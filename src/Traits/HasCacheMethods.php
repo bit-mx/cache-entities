@@ -20,13 +20,11 @@ trait HasCacheMethods
      */
     public function get(): mixed
     {
-        $driver = $this->resolveDriver();
-
         if ($this->hasMemoization()) {
-            return $this->rememberValue($driver->memo());
+            return $this->rememberValue(Cache::memo());
         }
 
-        return $this->rememberValue($driver);
+        return $this->rememberValue($this->resolveDriver());
     }
 
     /**
