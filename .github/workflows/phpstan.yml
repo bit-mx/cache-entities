@@ -26,5 +26,5 @@ jobs:
       - name: Install dependencies
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
       - name: Run phpstan
-        run: vendor/bin/phpstan analyse  -c phpstan.dist.neon src --error-format=github
+        run: vendor/bin/phpstan analyse  -c phpstan.dist.neon --error-format=github
 
