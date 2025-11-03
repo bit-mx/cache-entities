@@ -13,6 +13,11 @@ abstract class CacheEntity implements CacheableEntity
     /** @use HasCacheMethods<TReturn> */
     use HasCacheMethods;
 
+    protected function hasMemoization(): bool
+    {
+        return false;
+    }
+
     public function getKey(): string
     {
         return $this->resolveKey();
@@ -28,11 +33,6 @@ abstract class CacheEntity implements CacheableEntity
     protected function resolveTtl(): \DateInterval|\DateTime|\DateTimeImmutable|int
     {
         return now()->addHour();
-    }
-
-    protected function hasMemoization(): bool
-    {
-        return false;
     }
 
     protected function resolveCacheStore(): ?string

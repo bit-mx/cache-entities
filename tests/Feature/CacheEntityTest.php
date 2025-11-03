@@ -1,6 +1,7 @@
 <?php
 
 use BitMx\CacheEntities\CacheEntity;
+use BitMx\CacheEntities\Traits\HasMemoization;
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Support\Facades\Cache;
 
@@ -102,10 +103,12 @@ it('forgets the value', function () {
     expect(Cache::has($entity->getKey()))->toBeFalse();
 });
 
-it('momoize cache value if hasMemoization returns true', function () {
+it('has memoization cache value if hasMemoization HasMemoization trait is included', function () {
     /** @var CacheEntity<string> $entity */
-    $entity = new class extends CacheEntity
+    $entityWithMemoization = new class extends CacheEntity
     {
+        use HasMemoization;
+
         protected function resolveKey(): string
         {
             return 'key';
@@ -119,11 +122,6 @@ it('momoize cache value if hasMemoization returns true', function () {
         protected function resolveValue(): string
         {
             return 'value';
-        }
-
-        protected function hasMemoization(): bool
-        {
-            return true;
         }
     };
 
@@ -142,7 +140,47 @@ it('momoize cache value if hasMemoization returns true', function () {
         ->once()
         ->andReturn($mockCache);
 
-    $value = $entity->get();
+    $value = $entityWithMemoization->get();
+
+    expect($value)->toBe('value');
+});
+
+it('does not has memoization cache value if hasMemoization HasMemoization trait is not included', function () {
+    /** @var CacheEntity<string> $entity */
+    $entityWithoutMemoization = new class extends CacheEntity
+    {
+        protected function resolveKey(): string
+        {
+            return 'key';
+        }
+
+        protected function resolveTtl(): int
+        {
+            return 60;
+        }
+
+        protected function resolveValue(): string
+        {
+            return 'value';
+        }
+    };
+
+    $mockCache = Mockery::mock(Repository::class);
+
+    // Verificar que memo() NO debe ser llamado
+    $mockCache->shouldNotReceive('memo');
+
+    // Pero sí debe llamar directamente a remember()
+    $mockCache->shouldReceive('remember')
+        ->once()
+        ->with('key', 60, Mockery::type('Closure'))
+        ->andReturnUsing(fn ($key, $ttl, $callback) => $callback());
+
+    Cache::shouldReceive('driver')
+        ->once()
+        ->andReturn($mockCache);
+
+    $value = $entityWithoutMemoization->get();
 
     expect($value)->toBe('value');
 });
