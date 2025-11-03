@@ -20,13 +20,17 @@ trait HasCacheMethods
      */
     public function get(): mixed
     {
-        $driver = $this->resolveDriver();
+        $storeName = $this->resolveCacheStore();
 
-        if ($this->hasMemoization()) {
-            return $this->rememberValue($driver->memo());
-        }
+        $driver = $this->hasMemoization()
+            ? Cache::memo($storeName)
+            : ($storeName === null ? Cache::driver() : Cache::store($storeName));
 
-        return $this->rememberValue($driver);
+        return $driver->remember(
+            $this->resolveKey(),
+            $this->resolveTtl(),
+            fn () => $this->resolveValue(),
+        );
     }
 
     /**
@@ -68,19 +72,5 @@ trait HasCacheMethods
         }
 
         return Cache::store($storeName);
-    }
-
-    /**
-     * Return the value from the cache or resolve it and store it in the cache.
-     *
-     * @return TReturn
-     */
-    private function rememberValue(Repository $cacheDriver): mixed
-    {
-        return $cacheDriver->remember(
-            $this->resolveKey(),
-            $this->resolveTtl(),
-            fn () => $this->resolveValue(),
-        );
     }
 }
